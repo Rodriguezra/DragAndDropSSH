@@ -3,6 +3,7 @@ let Encrycption, CipheredData, publicKey, privateKey, plaintext, decriptedplaint
 let EncrycptionImg, CipheredDataImg, publicKeyImg, privateKeyImg, plaintextImg, decriptedplaintxtImg;
 let center1, center2, center3, center4, center5;
 let screen = 0;
+let widthConstraint, heightConstraint;
 
 function mousePressed() {
   if (screen === 1) { // Game1
@@ -21,11 +22,10 @@ function mousePressed() {
 }
 
 function handleDragging(card) {
-  if (card.mouse.dragging()) {
-    card.moveTowards(
-      mouse.x + card.mouse.x,
-      mouse.y + card.mouse.y,
-      1);
+  if (card.mouse.dragging()) { //The card is constrained within the game window
+    widthConstraint = constrain(mouseX + card.mouse.x, card.width / 2, width - card.width / 2);
+    heightConstraint = constrain(mouseY + card.mouse.y, card.height / 2, height - card.height / 2);
+    card.position = createVector(widthConstraint, heightConstraint);
     card.rotationLock = true;
   } else {
     card.vel.x = 0;
