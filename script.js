@@ -10,6 +10,14 @@ let screen = 0;
 //restart = 3
 
 
+function setCardsoffScreen(){
+  plaintext.pos = { x: -100, y: -100 };
+  publicKey.pos = { x: -100, y: -100 };
+  CipheredData.pos = { x: -100, y: -100 };
+  privateKey.pos = { x: -100, y: -100 };
+  decriptedplaintxt.pos = { x: -100, y: -100 };
+  Encrycption.pos = { x: -200, y: -200 };
+}
 
 function mousePressed() {
 
@@ -35,11 +43,10 @@ function mousePressed() {
 
 
 function handleDragging(card) {
-  if (card.mouse.dragging()) {
-    card.moveTowards(
-        mouse.x + card.mouse.x,
-        mouse.y + card.mouse.y,
-        1);
+  if (card.mouse.dragging()) { //The card is constrained within the game window
+    widthConstraint = constrain(mouseX + card.mouse.x, card.width / 2, width - card.width / 2);
+    heightConstraint = constrain(mouseY + card.mouse.y, card.height / 2, height - card.height / 2);
+    card.position = createVector(widthConstraint, heightConstraint);
     card.rotationLock = true;
   } else {
     card.vel.x = 0;
@@ -168,12 +175,7 @@ function draw() {
 }
 
 function showStartScreen(){
-  plaintext.pos = { x: -100, y: -100 };
-  publicKey.pos = { x: -100, y: -100 };
-  CipheredData.pos = { x: -100, y: -100 };
-  privateKey.pos = { x: -100, y: -100 };
-  decriptedplaintxt.pos = { x: -100, y: -100 };
-  Encrycption.pos = { x: -200, y: -200 };
+  setCardsoffScreen();
   background("pink");
 
   // Set text properties
@@ -196,12 +198,7 @@ function showStartScreen(){
 
 
 function showInstructionScreen(){
-  plaintext.pos = { x: -100, y: -100 };
-  publicKey.pos = { x: -100, y: -100 };
-  CipheredData.pos = { x: -100, y: -100 };
-  privateKey.pos = { x: -100, y: -100 };
-  decriptedplaintxt.pos = { x: -100, y: -100 };
-  Encrycption.pos = { x: -200, y: -200 };
+  setCardsoffScreen();
   background("blue");
 
   // Set text properties
@@ -220,12 +217,7 @@ function showInstructionScreen(){
 
 function showScreenWin() {
   // Move extra icons off screen when win page is up
-  plaintext.pos = { x: -100, y: -100 };
-  publicKey.pos = { x: -100, y: -100 };
-  CipheredData.pos = { x: -100, y: -100 };
-  privateKey.pos = { x: -100, y: -100 };
-  decriptedplaintxt.pos = { x: -100, y: -100 };
-  Encrycption.pos = { x: -200, y: -200 };
+  setCardsoffScreen();
   background("green");
 
   // Set text properties
