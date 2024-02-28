@@ -8,7 +8,10 @@ let screen = 0;
 //instructions = 1
 //game = 2
 //restart = 3
+//lose = 4
 
+
+//aadd - ishvina to check branch
 
 function setCardsoffScreen(){
   plaintext.pos = { x: -100, y: -100 };
@@ -164,12 +167,16 @@ function draw() {
         dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
         dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
         dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
-    ) {
+    )
+
+    {
       console.log("you win!");
       showScreenWin();
       screen = 3;
     }
-  } else if (screen === 3) {
+  }
+
+  else if (screen === 3) {
     showScreenWin();
   }
 }
@@ -190,10 +197,6 @@ function showStartScreen(){
   fill(0);
   textSize(20);
   text("Instructions", width / 2, height / 2 + 70);
-
-
-
-
 }
 
 
@@ -229,6 +232,24 @@ function showScreenWin() {
   // Restart button
   fill(255);
   rect(width / 2 - 50, height / 2 + 50, 100, 40);
+  fill(0);
+  textSize(20);
+  text("Restart", width / 2, height / 2 + 70);
+}
+
+function showLoseScreen(){
+  setCardsoffScreen();
+  background("red");
+
+  // Set text properties
+  fill(255); // White color
+  textSize(32); // Font size
+  textAlign(CENTER, CENTER); // Text alignment
+  text("You Lost \n\n", width / 2, height / 2 - 100);
+
+// Instructions button
+  fill(255);
+  rect(width / 2 - 70, height / 2 + 50, 150, 40);
   fill(0);
   textSize(20);
   text("Restart", width / 2, height / 2 + 70);
