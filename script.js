@@ -5,16 +5,16 @@ let center1, center2, center3, center4, center5;
 let screen = 0;
 let widthConstraint, heightConstraint;
 
+let confirm = false;
+let cancel = false;
+
 //start = 0
 //instructions = 1
 //game = 2
 //restart = 3
 //lose = 4
 
-
-//aadd - ishvina to check branch
-
-function setCardsoffScreen(){
+function setCardsoffScreen() {
   plaintext.pos = { x: -100, y: -100 };
   publicKey.pos = { x: -100, y: -100 };
   CipheredData.pos = { x: -100, y: -100 };
@@ -29,8 +29,9 @@ function mousePressed() {
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 90) {
       showInstructionScreen();
       screen = 1;
-      }
-  } else if(screen === 1 || screen === 3){// if on the instructions or restart screen
+    }
+  }
+  else if (screen === 1 || screen === 3 || screen == 4) {// if on the instructions/restart/lose screen
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 90) {
       screen = 2;
@@ -42,12 +43,39 @@ function mousePressed() {
       Encrycption.pos = { x: width / 2 + 10, y: 160 };
     }
   }
-
+  else if (screen == 2 && confirm && !cancel) {
+    if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 80 && mouseY < height / 2 + 120) {
+      if (
+        dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
+        dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
+        dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
+        dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
+        dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
+      ) {
+        console.log("you win!");
+        showScreenWin();
+        screen = 3;
+        confirm = false;
+      }
+      else {
+        console.log("you lose!");
+        showScreenLose();
+        screen = 4;
+        confirm = false;
+      }
+    }
+    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 80 && mouseY < height / 2 + 120) {
+      confirm = false;
+      cancel = true;
+    }
+  }
 }
 
 
 function handleDragging(card) {
   if (card.mouse.dragging()) { //The card is constrained within the game window
+    cancel = false;
+    confirm = false;
     widthConstraint = constrain(mouseX + card.mouse.x, card.width / 2, width - card.width / 2);
     heightConstraint = constrain(mouseY + card.mouse.y, card.height / 2, height - card.height / 2);
     card.position = createVector(widthConstraint, heightConstraint);
@@ -81,6 +109,18 @@ function snapToCenter(card) {
       default:
         break;
     }
+  }
+}
+
+function checkIfConfirm() {
+  let numSnapped = 0;
+  for (let card of cards) {
+    if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
+      numSnapped++;
+    }
+  }
+  if (numSnapped == 5) {
+    confirm = true;
   }
 }
 
@@ -149,36 +189,48 @@ function draw() {
   // Set up the screen
   clear();
   background("white");
+  fill(0);
+  textSize(20);
   if(screen === 0){
     showStartScreen();
-
-  }else if(screen === 1){
+  }
+  else if(screen === 1){
     showInstructionScreen();
-
-
-  } else if (screen === 2) {
+  }
+  else if (screen === 2) {
     for (let card of cards) {
       handleDragging(card);
       snapToCenter(card);
     }
-    //Check if we win!!!
-    if (
-        dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
-        dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
-        dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
-        dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
-        dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
-    )
+  }
 
-    {
-      console.log("you win!");
-      showScreenWin();
-      screen = 3;
-    }
+  checkIfConfirm();
+    //Check if we win!!!
+  if (confirm && !cancel) {
+    const c = color(0, 179, 115);
+    fill(c);
+    noStroke();
+    rect((width / 2) - 140, height / 2 + 35, 300, 100, 10);
+    fill(255);
+    textSize(20);
+    text('Submit Answer?', width / 2 + 10, height - 245);
+    fill(255);
+    rect(width / 2 + 20, height / 2 + 80, 120, 40, 10);
+    fill(0);
+    textSize(17);
+    text("Submit", width / 2 + 80, height / 2 + 100);
+    fill(255);
+    rect(width / 2 - 120, height / 2 + 80, 120, 40, 10);
+    fill(0);
+    text("Cancel", width / 2 - 60, height / 2 + 100);
   }
 
   else if (screen === 3) {
     showScreenWin();
+  }
+
+  else if (screen == 4) {
+    showScreenLose();
   }
 }
 
@@ -238,7 +290,7 @@ function showScreenWin() {
   text("Restart", width / 2, height / 2 + 70);
 }
 
-function showLoseScreen(){
+function showScreenLose(){
   setCardsoffScreen();
   background("red");
 
@@ -246,7 +298,7 @@ function showLoseScreen(){
   fill(255); // White color
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
-  text("You Lost \n\n", width / 2, height / 2 - 100);
+  text("You Lose!\n\nTry again?", width / 2, height / 2 - 100);
 
 // Instructions button
   fill(255);
