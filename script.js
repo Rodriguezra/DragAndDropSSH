@@ -3,6 +3,7 @@ let Encrycption, CipheredData, publicKey, privateKey, plaintext, decriptedplaint
 let EncrycptionImg, CipheredDataImg, publicKeyImg, privateKeyImg, plaintextImg, decriptedplaintxtImg;
 let center1, center2, center3, center4, center5;
 let screen = 0;
+let widthConstraint, heightConstraint;
 
 //start = 0
 //instructions = 1
