@@ -5,12 +5,36 @@ let center1, center2, center3, center4, center5;
 let screen = 0;
 let widthConstraint, heightConstraint;
 
+let confirm = false;
+let cancel = false;
+
+//start = 0
+//instructions = 1
+//game = 2
+//restart = 3
+//lose = 4
+
+function setCardsoffScreen() {
+  plaintext.pos = { x: -100, y: -100 };
+  publicKey.pos = { x: -100, y: -100 };
+  CipheredData.pos = { x: -100, y: -100 };
+  privateKey.pos = { x: -100, y: -100 };
+  decriptedplaintxt.pos = { x: -100, y: -100 };
+  Encrycption.pos = { x: -200, y: -200 };
+}
+
 function mousePressed() {
-  if (screen === 1) { // Game1
-    // if we press restart button
+
+  if (screen === 0) { //on the start screen
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 90) {
-      screen = 0;
-      // Reset card positions to initial locations
+      showInstructionScreen();
+      screen = 1;
+    }
+  }
+  else if (screen === 1 || screen === 3 || screen == 4) {// if on the instructions/restart/lose screen
+    //press begin button or restart button pressed
+    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 90) {
+      screen = 2;
       CipheredData.position = createVector(width / 4, height - (height / 3) + 85);
       publicKey.position = createVector(width / 4, height - (height / 3) + 135);
       privateKey.position = createVector(width / 2, height - (height / 3) + 35);
@@ -19,10 +43,39 @@ function mousePressed() {
       Encrycption.pos = { x: width / 2 + 10, y: 160 + 85 };
     }
   }
+  else if (screen == 2 && confirm && !cancel) {
+    if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
+      if (
+        dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
+        dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
+        dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
+        dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
+        dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
+      ) {
+        console.log("you win!");
+        showScreenWin();
+        screen = 3;
+        confirm = false;
+      }
+      else {
+        console.log("you lose!");
+        showScreenLose();
+        screen = 4;
+        confirm = false;
+      }
+    }
+    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 260 && mouseY < height / 2 + 300) {
+      confirm = false;
+      cancel = true;
+    }
+  }
 }
+
 
 function handleDragging(card) {
   if (card.mouse.dragging()) { //The card is constrained within the game window
+    cancel = false;
+    confirm = false;
     widthConstraint = constrain(mouseX + card.mouse.x, card.width / 2, width - card.width / 2);
     heightConstraint = constrain(mouseY + card.mouse.y, card.height / 2, height - card.height / 2);
     card.position = createVector(widthConstraint, heightConstraint);
@@ -56,6 +109,18 @@ function snapToCenter(card) {
       default:
         break;
     }
+  }
+}
+
+function checkIfConfirm() {
+  let numSnapped = 0;
+  for (let card of cards) {
+    if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
+      numSnapped++;
+    }
+  }
+  if (numSnapped == 5) {
+    confirm = true;
   }
 }
 
@@ -108,15 +173,31 @@ function setup() {
   decriptedplaintxt.addImage(decriptedplaintxtImg);
   decriptedplaintxt.scale = 0.50;
   cards[4] = decriptedplaintxt;
+
+
+  plaintext.pos = { x: -100, y: -100 };
+  publicKey.pos = { x: -100, y: -100 };
+  CipheredData.pos = { x: -100, y: -100 };
+  privateKey.pos = { x: -100, y: -100 };
+  decriptedplaintxt.pos = { x: -100, y: -100 };
+  Encrycption.pos = { x: -200, y: -200 };
+
 }
 
+
 function draw() {
-  // Set up the screen 
+  // Set up the screen
   clear();
   background("white");
 
-  if (screen === 0) {
 
+  if (screen === 0) {
+    showStartScreen();
+  }
+  else if (screen === 1) {
+    showInstructionScreen();
+  }
+  else if (screen === 2) {
     // Define the text content
     // Set text properties
     noFill();
@@ -128,35 +209,83 @@ function draw() {
     textAlign(LEFT, TOP); // Text alignment
     text("Asymmetric encryption, also known as public-key encryption, is a type of encryption algorithm that uses a pair of keys (public and private) to encrypt and decrypt data. The image provided is a flow chart showcasing the process of asymmetric encryption. As you can see the steps seem to have been mixed up. Rearrange the list so that it follows steps 1-5 in the correct order.", 30, 20, 600, 360);
 
+
     for (let card of cards) {
       handleDragging(card);
       snapToCenter(card);
     }
-    //Check if we win!!!
-    if (
-      dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
-      dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
-      dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
-      dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
-      dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
-    ) {
-      console.log("you win!");
-      showScreenWin();
-      screen = 1;
-    }
-  } else if (screen === 1) {
+  }
+
+  checkIfConfirm();
+  //Check if we win!!!
+  if (confirm && !cancel) {
+    const c = color(0, 179, 115);
+    fill(c);
+    noStroke();
+    rect((width / 2) - 140, height / 2 + 125, 300, 100, 10);
+    fill(255);
+    textSize(20);
+    text('Submit Answer?', width / 2 + 10, height - 170);
+    fill(255);
+    rect(width / 2 + 20, height / 2 + 170, 120, 40, 10);
+    fill(0);
+    textSize(17);
+    text("Submit", width / 2 + 80, height / 2 + 182);
+    fill(255);
+    rect(width / 2 - 120, height / 2 + 170, 120, 40, 10);
+    fill(0);
+    text("Cancel", width / 2 - 60, height / 2 + 182);
+  }
+
+  else if (screen === 3) {
     showScreenWin();
   }
+
+  else if (screen == 4) {
+    showScreenLose();
+  }
+}
+
+function showStartScreen() {
+  setCardsoffScreen();
+  background("pink");
+
+  // Set text properties
+  fill(255); // White color
+  textSize(32); // Font size
+  textAlign(CENTER, CENTER); // Text alignment
+  text("Start Screen\n\n", width / 2, height / 2 - 100);
+
+  // Instructions button
+  fill(255);
+  rect(width / 2 - 70, height / 2 + 50, 150, 40);
+  fill(0);
+  textSize(20);
+  text("Instructions", width / 2, height / 2 + 70);
+}
+
+
+function showInstructionScreen() {
+  setCardsoffScreen();
+  background("blue");
+
+  // Set text properties
+  fill(255); // White color
+  textSize(32); // Font size
+  textAlign(CENTER, CENTER); // Text alignment
+  text("Instructions!\n\n", width / 2, height / 2 - 100);
+
+  // Begin button
+  fill(255);
+  rect(width / 2 - 50, height / 2 + 50, 100, 40);
+  fill(0);
+  textSize(20);
+  text("Begin", width / 2, height / 2 + 70);
 }
 
 function showScreenWin() {
   // Move extra icons off screen when win page is up
-  plaintext.pos = { x: -100, y: -100 };
-  publicKey.pos = { x: -100, y: -100 };
-  CipheredData.pos = { x: -100, y: -100 };
-  privateKey.pos = { x: -100, y: -100 };
-  decriptedplaintxt.pos = { x: -100, y: -100 };
-  Encrycption.pos = { x: -200, y: -200 };
+  setCardsoffScreen();
   background("green");
 
   // Set text properties
@@ -168,6 +297,24 @@ function showScreenWin() {
   // Restart button
   fill(255);
   rect(width / 2 - 50, height / 2 + 50, 100, 40);
+  fill(0);
+  textSize(20);
+  text("Restart", width / 2, height / 2 + 70);
+}
+
+function showScreenLose() {
+  setCardsoffScreen();
+  background("red");
+
+  // Set text properties
+  fill(255); // White color
+  textSize(32); // Font size
+  textAlign(CENTER, CENTER); // Text alignment
+  text("You Lose!\n\nTry again?", width / 2, height / 2 - 100);
+
+  // Instructions button
+  fill(255);
+  rect(width / 2 - 70, height / 2 + 50, 150, 40);
   fill(0);
   textSize(20);
   text("Restart", width / 2, height / 2 + 70);
