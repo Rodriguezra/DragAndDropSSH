@@ -26,14 +26,14 @@ function setCardsoffScreen() {
 function mousePressed() {
 
   if (screen === 0) { //on the start screen
-    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 90) {
+    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       showInstructionScreen();
       screen = 1;
     }
   }
   else if (screen === 1 || screen === 3 || screen == 4) {// if on the instructions/restart/lose screen
     //press begin button or restart button pressed
-    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 90) {
+    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       screen = 2;
       CipheredData.position = createVector(width / 4, height - (height / 3) + 85);
       publicKey.position = createVector(width / 4, height - (height / 3) + 135);
@@ -64,7 +64,7 @@ function mousePressed() {
         confirm = false;
       }
     }
-    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 260 && mouseY < height / 2 + 300) {
+    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
       confirm = false;
       cancel = true;
     }
@@ -200,12 +200,14 @@ function draw() {
   else if (screen === 2) {
     // Define the text content
     // Set text properties
-    noFill();
-    textSize(12); // Font size
-    rect(20, 10, 620, 74);
-
+    const c = color(0, 179, 115);
+    stroke(0);
+    fill(255); 
+    rect(20, 10, 620, 74, 10);
     // Display text content
-    fill('black');
+    textSize(12);
+    noStroke();
+    fill(0);
     textAlign(LEFT, TOP); // Text alignment
     text("Asymmetric encryption, also known as public-key encryption, is a type of encryption algorithm that uses a pair of keys (public and private) to encrypt and decrypt data. The image provided is a flow chart showcasing the process of asymmetric encryption. As you can see the steps seem to have been mixed up. Rearrange the list so that it follows steps 1-5 in the correct order.", 30, 20, 600, 360);
 
@@ -225,16 +227,16 @@ function draw() {
     rect((width / 2) - 140, height / 2 + 125, 300, 100, 10);
     fill(255);
     textSize(20);
-    text('Submit Answer?', width / 2 + 10, height - 170);
+    text('Submit Answer?', width / 2 - 55, height - 170);
     fill(255);
     rect(width / 2 + 20, height / 2 + 170, 120, 40, 10);
     fill(0);
     textSize(17);
-    text("Submit", width / 2 + 80, height / 2 + 182);
+    text("Submit", width / 2 + 55, height / 2 + 182);
     fill(255);
     rect(width / 2 - 120, height / 2 + 170, 120, 40, 10);
     fill(0);
-    text("Cancel", width / 2 - 60, height / 2 + 182);
+    text("Cancel", width / 2 - 85, height / 2 + 182);
   }
 
   else if (screen === 3) {
@@ -248,45 +250,48 @@ function draw() {
 
 function showStartScreen() {
   setCardsoffScreen();
-  background("pink");
+  const c = color(0, 179, 115);
+  background(c);
 
   // Set text properties
   fill(255); // White color
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
-  text("Start Screen\n\n", width / 2, height / 2 - 100);
+  text("Asymmetric Encryption\n\n", width / 2, height / 2 - 200);
 
   // Instructions button
   fill(255);
-  rect(width / 2 - 70, height / 2 + 50, 150, 40);
+  noStroke();
+  rect(width / 2 - 75, height / 2 + 120, 150, 40, 10);
   fill(0);
   textSize(20);
-  text("Instructions", width / 2, height / 2 + 70);
+  text("Instructions", width / 2, height / 2 + 140);
 }
 
 
 function showInstructionScreen() {
   setCardsoffScreen();
-  background("blue");
-
+  background("white");
+  const c = color(0, 179, 115);
   // Set text properties
-  fill(255); // White color
+  fill(c); // Black color
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
-  text("Instructions!\n\n", width / 2, height / 2 - 100);
+  text("Instructions\n\n", width / 2, height / 2 - 200);
 
   // Begin button
+  fill(c);
+  rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
   fill(255);
-  rect(width / 2 - 50, height / 2 + 50, 100, 40);
-  fill(0);
   textSize(20);
-  text("Begin", width / 2, height / 2 + 70);
+  text("Begin", width / 2, height / 2 + 140);
 }
 
 function showScreenWin() {
   // Move extra icons off screen when win page is up
   setCardsoffScreen();
-  background("green");
+  const c = color(0, 179, 115);
+  background(c);
 
   // Set text properties
   fill(255); // White color
@@ -296,10 +301,10 @@ function showScreenWin() {
 
   // Restart button
   fill(255);
-  rect(width / 2 - 50, height / 2 + 50, 100, 40);
+  rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
   fill(0);
   textSize(20);
-  text("Restart", width / 2, height / 2 + 70);
+  text("Restart", width / 2, height / 2 + 140);
 }
 
 function showScreenLose() {
@@ -314,8 +319,8 @@ function showScreenLose() {
 
   // Instructions button
   fill(255);
-  rect(width / 2 - 70, height / 2 + 50, 150, 40);
+  rect(width / 2 - 75, height / 2 + 120, 150, 40, 10);
   fill(0);
   textSize(20);
-  text("Restart", width / 2, height / 2 + 70);
+  text("Restart", width / 2, height / 2 + 140);
 }
