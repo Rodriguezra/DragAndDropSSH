@@ -90,24 +90,35 @@ function handleDragging(card) {
 function snapToCenter(card) {
   // Snap into position and check if there is not already a card in the center position
   if (!mouseIsPressed) {
+    let snapped = false;
     switch (true) {
       case dist(card.x, card.y, center1.x, center1.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center1.x, center1.y) < 60):
         card.position = center1;
+        snapped = true;
         break;
       case dist(card.x, card.y, center2.x, center2.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center2.x, center2.y) < 60):
         card.position = center2;
+        snapped = true;
         break;
       case dist(card.x, card.y, center3.x, center3.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center3.x, center3.y) < 60):
         card.position = center3;
+        snapped = true;
         break;
       case dist(card.x, card.y, center4.x, center4.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center4.x, center4.y) < 60):
         card.position = center4;
+        snapped = true;
         break;
       case dist(card.x, card.y, center5.x, center5.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center5.x, center5.y) < 60):
         card.position = center5;
+        snapped = true;
         break;
       default:
         break;
+    }
+
+    if (!snapped) {
+      // Return the card to its original position
+      card.position = card.originalPosition;
     }
   }
 }
@@ -153,26 +164,31 @@ function setup() {
   CipheredData.addImage(CipheredDataImg);
   CipheredData.scale = 0.50;
   cards[0] = CipheredData;
+  CipheredData.originalPosition = createVector(width / 4, (height - (height / 3)) + 85);
 
   publicKey = new cards.Sprite((width / 4), height - (height / 3) + 135);
   publicKey.addImage(publicKeyImg);
   publicKey.scale = 0.50;
   cards[1] = publicKey;
+  publicKey.originalPosition = createVector(width / 4, height - (height / 3) + 135);
 
   privateKey = new cards.Sprite(width / 2, height - (height / 3) + 35);
   privateKey.addImage(privateKeyImg);
   privateKey.scale = 0.50;
   cards[2] = privateKey;
+  privateKey.originalPosition = createVector(width / 2, height - (height / 3) + 35);
 
   plaintext = new cards.Sprite(width / 2, height - (height / 3) + 85);
   plaintext.addImage(plaintextImg);
   plaintext.scale = 0.50;
   cards[3] = plaintext;
+  plaintext.originalPosition = createVector(width / 2, height - (height / 3) + 85);
 
   decriptedplaintxt = new cards.Sprite(width / 2, height - (height / 3) + 135);
   decriptedplaintxt.addImage(decriptedplaintxtImg);
   decriptedplaintxt.scale = 0.50;
   cards[4] = decriptedplaintxt;
+  decriptedplaintxt.originalPosition = createVector(width / 2, height - (height / 3) + 135);
 
 
   plaintext.pos = { x: -100, y: -100 };
