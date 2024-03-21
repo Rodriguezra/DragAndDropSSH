@@ -136,12 +136,12 @@ function checkIfConfirm() {
 }
 
 function preload() {
-  EncrycptionImg = loadImage('assets/EncrycptionImg.png');
-  CipheredDataImg = loadImage('assets/CipheredDataImg.png');
-  publicKeyImg = loadImage('assets/publicKeyImg.png');
-  privateKeyImg = loadImage('assets/privateKeyImg.png');
-  plaintextImg = loadImage('assets/plaintextImg.png');
-  decriptedplaintxtImg = loadImage('assets/decriptedplaintxtImg.png');
+  EncrycptionImg = loadImage('assets/AsyEnc/EncrycptionImg.png');
+  CipheredDataImg = loadImage('assets/AsyEnc/CipheredDataImg.png');
+  publicKeyImg = loadImage('assets/AsyEnc/publicKeyImg.png');
+  privateKeyImg = loadImage('assets/AsyEnc/privateKeyImg.png');
+  plaintextImg = loadImage('assets/AsyEnc/plaintextImg.png');
+  decriptedplaintxtImg = loadImage('assets/AsyEnc/decriptedplaintxtImg.png');
 }
 
 function setup() {
@@ -218,7 +218,7 @@ function draw() {
     // Set text properties
     const c = color(0, 179, 115);
     stroke(0);
-    fill(255); 
+    fill(255);
     rect(20, 10, 620, 74, 10);
     // Display text content
     textSize(12);
