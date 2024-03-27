@@ -225,7 +225,7 @@ function draw() {
     noStroke();
     fill(0);
     textAlign(LEFT, TOP); // Text alignment
-    text("Asymmetric encryption, also known as public-key encryption, is a type of encryption algorithm that uses a pair of keys (public and private) to encrypt and decrypt data. The image provided is a flow chart showcasing the process of asymmetric encryption. As you can see the steps seem to have been mixed up. Rearrange the list so that it follows steps 1-5 in the correct order.", 30, 20, 600, 360);
+    text("The following image provided shows several US federal laws related to cybercrimes. Rearrange the list so that each law matches its correct description", 30, 20, 600, 360);
 
 
     for (let card of cards) {
@@ -273,7 +273,7 @@ function showStartScreen() {
   fill(255); // White color
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
-  text("Asymmetric Encryption\n\n", width / 2, height / 2 - 200);
+  text("Cybercrime Laws\n\n", width / 2, height / 2 - 200);
 
   // Instructions button
   fill(255);
@@ -301,6 +301,22 @@ function showInstructionScreen() {
   fill(255);
   textSize(20);
   text("Begin", width / 2, height / 2 + 140);
+
+
+  textSize(18); // Adjusted font size
+  textAlign(LEFT, TOP); // Adjusted text alignment
+
+  // Additional text
+  fill(color(0));
+  let textX = 50; // X position for the additional text
+  let textY = height / 2 - 150; // Starting Y position for the additional text
+  let textLeading = 24; // Line spacing
+  let textWidth = width - 100; // Width of the text block
+  let additionalText = "Your objective is to correctly place each card into its designated slot. To play, click and hold on a card, then drag it to the slot where you think it belongs. Release the mouse to drop the card into place.\n\nRemember, each card has a specific slot it must occupy. When all cards have been placed, you'll see an option to check your answers. If you're correct, you'll have the option to play again.";
+
+  text(additionalText, textX, textY, textWidth, height - textY); // Display additional text with specified width and height
+
+
 }
 
 function showScreenWin() {
