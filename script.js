@@ -4,7 +4,8 @@ let EncrycptionImg, CipheredDataImg, publicKeyImg, privateKeyImg, plaintextImg, 
 let center1, center2, center3, center4, center5;
 let screen = 0;
 let widthConstraint, heightConstraint;
-
+let alphaValue = 0;
+let fadeSpeed = 5;
 let confirm = false;
 let cancel = false;
 
@@ -325,13 +326,18 @@ function showScreenWin() {
   const c = color(0, 179, 115);
   background(c);
 
-  // Set text properties
-  fill(255); // White color
-  textSize(32); // Font size
-  textAlign(CENTER, CENTER); // Text alignment
+  //Set text properties
+  fill(255, alphaValue);
+  textSize(32);
+  textAlign(CENTER, CENTER);
   text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 100);
 
-  // Restart button
+  //Animate alpha value for fading effect
+  alphaValue += fadeSpeed;
+  if (alphaValue > 255 || alphaValue < 0) {
+    fadeSpeed *= -1; //Reverse the fade direction
+  }
+  //Restart button
   fill(255);
   rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
   fill(0);
@@ -343,11 +349,17 @@ function showScreenLose() {
   setCardsoffScreen();
   background("red");
 
-  // Set text properties
-  fill(255); // White color
-  textSize(32); // Font size
-  textAlign(CENTER, CENTER); // Text alignment
-  text("You Lose!\n\nTry again?", width / 2, height / 2 - 100);
+  //Set text properties
+  fill(255, alphaValue);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text("Not Quite!\n\nTry again?", width / 2, height / 2 - 100);
+
+  //Animate alpha value for fading effect
+  alphaValue += fadeSpeed;
+  if (alphaValue > 255 || alphaValue < 0) {
+    fadeSpeed *= -1; //Reverse the fade direction
+  }
 
   // Instructions button
   fill(255);
