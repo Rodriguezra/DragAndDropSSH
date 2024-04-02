@@ -1,6 +1,6 @@
 let cards = [];
-let Encrycption, CipheredData, publicKey, privateKey, plaintext, decriptedplaint;
-let EncrycptionImg, CipheredDataImg, publicKeyImg, privateKeyImg, plaintextImg, decriptedplaintxtImg;
+let Cyberlaws, FraudAndDevices, FraudAndComputers, Communication, Interception, UnlawfulAccess;
+let CyberlawsImg, FraudAndDevicesImg, FraudAndComputersImg, CommunicationImg, pInterceptionImg, UnlawfulAccessImg;
 let center1, center2, center3, center4, center5;
 let screen = 0;
 let widthConstraint, heightConstraint;
@@ -16,12 +16,12 @@ let cancel = false;
 //lose = 4
 
 function setCardsoffScreen() {
-  plaintext.pos = { x: -100, y: -100 };
-  publicKey.pos = { x: -100, y: -100 };
-  CipheredData.pos = { x: -100, y: -100 };
-  privateKey.pos = { x: -100, y: -100 };
-  decriptedplaintxt.pos = { x: -100, y: -100 };
-  Encrycption.pos = { x: -200, y: -200 };
+  Communication.pos = { x: -100, y: -100 };
+  FraudAndComputers.pos = { x: -100, y: -100 };
+  FraudAndDevices.pos = { x: -100, y: -100 };
+  UnlawfulAccess.pos = { x: -100, y: -100 };
+  Interception.pos = { x: -100, y: -100 };
+  Cyberlaws.pos = { x: -300, y: -300 };
 }
 
 function mousePressed() {
@@ -36,22 +36,22 @@ function mousePressed() {
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       screen = 2;
-      CipheredData.position = createVector(width / 4, height - (height / 3) + 85);
-      publicKey.position = createVector(width / 4, height - (height / 3) + 135);
-      privateKey.position = createVector(width / 2, height - (height / 3) + 35);
-      plaintext.position = createVector(width / 2, height - (height / 3) + 85);
-      decriptedplaintxt.position = createVector(width / 2, height - (height / 3) + 135);
-      Encrycption.pos = { x: width / 2 + 10, y: 160 + 85 };
+      FraudAndDevices.position = createVector(width / 4 - 77, height - (height / 3) + 125);
+      FraudAndComputers.position = createVector(width / 4 - 77, height - (height / 3) + 175);
+      Communication.position = createVector(width / 2 - 100, height - (height / 3) + 125);
+      Interception.position = createVector(width / 2 - 100, height - (height / 3) + 175);
+      UnlawfulAccess.position = createVector(width / 2 + 40, height - (height / 3) + 125);
+      Cyberlaws.pos = { x: width / 2 - 100, y: 300 };
     }
   }
   else if (screen == 2 && confirm && !cancel) {
     if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
       if (
-        dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
-        dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
-        dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
-        dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
-        dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
+        dist(FraudAndDevices.x, FraudAndDevices.y, center1.x, center1.y) < 1 &&
+        dist(FraudAndComputers.x, FraudAndComputers.y, center2.x, center2.y) < 1 &&
+        dist(Communication.x, Communication.y, center3.x, center3.y) < 1 &&
+        dist(Interception.x, Interception.y, center4.x, center4.y) < 1 &&
+        dist(UnlawfulAccess.x, UnlawfulAccess.y, center5.x, center5.y) < 1
       ) {
         console.log("you win!");
         showScreenWin();
@@ -137,67 +137,67 @@ function checkIfConfirm() {
 }
 
 function preload() {
-  EncrycptionImg = loadImage('assets/AsyEnc/EncrycptionImg.png');
-  CipheredDataImg = loadImage('assets/AsyEnc/CipheredDataImg.png');
-  publicKeyImg = loadImage('assets/AsyEnc/publicKeyImg.png');
-  privateKeyImg = loadImage('assets/AsyEnc/privateKeyImg.png');
-  plaintextImg = loadImage('assets/AsyEnc/plaintextImg.png');
-  decriptedplaintxtImg = loadImage('assets/AsyEnc/decriptedplaintxtImg.png');
+  CyberlawsImg = loadImage('assets/CyberLaws/Cyberlaws.png');
+  FraudAndDevicesImg = loadImage('assets/CyberLaws/FraudAndDevices.png');
+  FraudAndComputersImg = loadImage('assets/CyberLaws/FraudAndComputers.png');
+  CommunicationImg = loadImage('assets/CyberLaws/Communication.png');
+  InterceptionImg = loadImage('assets/CyberLaws/Interception.png');
+  UnlawfulAccessImg = loadImage('assets/CyberLaws/UnlawfulAccess.png');
 }
 
 function setup() {
   createCanvas(650, 620);
 
-  center1 = createVector(175, 175 + 85);
-  center2 = createVector(250, 280 + 85);
-  center3 = createVector(333, 187 + 85);
-  center4 = createVector(407, 280 + 85);
-  center5 = createVector(485, 175 + 85);
+  center1 = createVector(535, 135);
+  center2 = createVector(535, 220);
+  center3 = createVector(535, 300);
+  center4 = createVector(535, 385);
+  center5 = createVector(535, 475);
 
-  Encrycption = new Sprite(width / 2 + 10, 160 + 85);
-  Encrycption.addImage(EncrycptionImg);
-  Encrycption.collider = 'k';
+  Cyberlaws = new Sprite(width / 2 - 100, 300);
+  Cyberlaws.addImage(CyberlawsImg);
+  Cyberlaws.collider = 'k';
 
   cards = new Group();
   cards.collider = 'k';
 
-  CipheredData = new cards.Sprite(width / 4, (height - (height / 3)) + 85);
-  CipheredData.addImage(CipheredDataImg);
-  CipheredData.scale = 0.50;
-  cards[0] = CipheredData;
-  CipheredData.originalPosition = createVector(width / 4, (height - (height / 3)) + 85);
+  FraudAndDevices = new cards.Sprite(width / 4 - 77, height - (height / 3) + 125);
+  FraudAndDevices.addImage(FraudAndDevicesImg);
+  FraudAndDevices.scale = 0.50;
+  cards[0] = FraudAndDevices;
+  FraudAndDevices.originalPosition = createVector(width / 4 - 77, height - (height / 3) + 125);
 
-  publicKey = new cards.Sprite((width / 4), height - (height / 3) + 135);
-  publicKey.addImage(publicKeyImg);
-  publicKey.scale = 0.50;
-  cards[1] = publicKey;
-  publicKey.originalPosition = createVector(width / 4, height - (height / 3) + 135);
+  FraudAndComputers = new cards.Sprite((width / 4 - 77), height - (height / 3) + 175);
+  FraudAndComputers.addImage(FraudAndComputersImg);
+  FraudAndComputers.scale = 0.50;
+  cards[1] = FraudAndComputers;
+  FraudAndComputers.originalPosition = createVector(width / 4 - 77, height - (height / 3) + 175);
 
-  privateKey = new cards.Sprite(width / 2, height - (height / 3) + 35);
-  privateKey.addImage(privateKeyImg);
-  privateKey.scale = 0.50;
-  cards[2] = privateKey;
-  privateKey.originalPosition = createVector(width / 2, height - (height / 3) + 35);
+  Communication = new cards.Sprite(width / 2 - 100, height - (height / 3) + 125);
+  Communication.addImage(CommunicationImg);
+  Communication.scale = 0.50;
+  cards[2] = Communication;
+  Communication.originalPosition = createVector(width / 2 - 100, height - (height / 3) + 125);
 
-  plaintext = new cards.Sprite(width / 2, height - (height / 3) + 85);
-  plaintext.addImage(plaintextImg);
-  plaintext.scale = 0.50;
-  cards[3] = plaintext;
-  plaintext.originalPosition = createVector(width / 2, height - (height / 3) + 85);
+  Interception = new cards.Sprite(width / 2 - 100, height - (height / 3) + 175);
+  Interception.addImage(InterceptionImg);
+  Interception.scale = 0.50;
+  cards[3] = Interception;
+  Interception.originalPosition = createVector(width / 2 - 100, height - (height / 3) + 175);
 
-  decriptedplaintxt = new cards.Sprite(width / 2, height - (height / 3) + 135);
-  decriptedplaintxt.addImage(decriptedplaintxtImg);
-  decriptedplaintxt.scale = 0.50;
-  cards[4] = decriptedplaintxt;
-  decriptedplaintxt.originalPosition = createVector(width / 2, height - (height / 3) + 135);
+  UnlawfulAccess = new cards.Sprite(width / 2 + 40, height - (height / 3) + 125);
+  UnlawfulAccess.addImage(UnlawfulAccessImg);
+  UnlawfulAccess.scale = 0.50;
+  cards[4] = UnlawfulAccess;
+  UnlawfulAccess.originalPosition = createVector(width / 2 + 40, height - (height / 3) + 125);
 
 
-  plaintext.pos = { x: -100, y: -100 };
-  publicKey.pos = { x: -100, y: -100 };
-  CipheredData.pos = { x: -100, y: -100 };
-  privateKey.pos = { x: -100, y: -100 };
-  decriptedplaintxt.pos = { x: -100, y: -100 };
-  Encrycption.pos = { x: -200, y: -200 };
+  Communication.pos = { x: -100, y: -100 };
+  FraudAndComputers.pos = { x: -100, y: -100 };
+  FraudAndDevices.pos = { x: -100, y: -100 };
+  Interception.pos = { x: -100, y: -100 };
+  UnlawfulAccess.pos = { x: -100, y: -100 };
+  Cyberlaws.pos = { x: -200, y: -200 };
 
 }
 
