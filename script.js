@@ -45,7 +45,7 @@ function mousePressed() {
     }
   }
   else if (screen == 2 && confirm && !cancel) {
-    if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
+    if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
       if (
         dist(FraudAndDevices.x, FraudAndDevices.y, center1.x, center1.y) < 1 &&
         dist(FraudAndComputers.x, FraudAndComputers.y, center2.x, center2.y) < 1 &&
@@ -65,7 +65,7 @@ function mousePressed() {
         confirm = false;
       }
     }
-    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
+    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
       confirm = false;
       cancel = true;
     }
@@ -241,19 +241,19 @@ function draw() {
     const c = color(0, 179, 115);
     fill(c);
     noStroke();
-    rect((width / 2) - 140, height / 2 + 125, 300, 100, 10);
+    rect((width / 2) - 140, height / 2 + 205, 300, 100, 10);
     fill(255);
     textSize(20);
-    text('Submit Answer?', width / 2 - 55, height - 170);
+    text('Submit Answer?', width / 2 - 55, height - 90);
     fill(255);
-    rect(width / 2 + 20, height / 2 + 170, 120, 40, 10);
+    rect(width / 2 + 20, height / 2 + 250, 120, 40, 10);
     fill(0);
     textSize(17);
-    text("Submit", width / 2 + 55, height / 2 + 182);
+    text("Submit", width / 2 + 55, height / 2 + 262);
     fill(255);
-    rect(width / 2 - 120, height / 2 + 170, 120, 40, 10);
+    rect(width / 2 - 120, height / 2 + 250, 120, 40, 10);
     fill(0);
-    text("Cancel", width / 2 - 85, height / 2 + 182);
+    text("Cancel", width / 2 - 85, height / 2 + 262);
   }
 
   else if (screen === 3) {
