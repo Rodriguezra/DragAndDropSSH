@@ -137,17 +137,21 @@ function checkIfConfirm() {
 }
 
 function preload() {
-  CyberlawsImg = loadImage('assets/CyberLaws/Cyberlaws.png');
-  FraudAndDevicesImg = loadImage('assets/CyberLaws/FraudAndDevices.png');
-  FraudAndComputersImg = loadImage('assets/CyberLaws/FraudAndComputers.png');
-  CommunicationImg = loadImage('assets/CyberLaws/Communication.png');
-  InterceptionImg = loadImage('assets/CyberLaws/Interception.png');
-  UnlawfulAccessImg = loadImage('assets/CyberLaws/UnlawfulAccess.png');
+  CyberlawsImg = loadImage('assets/CyberLaws/1/Cyberlaws.png');
+  FraudAndDevicesImg = loadImage('assets/CyberLaws/1/FraudAndDevices.png');
+  FraudAndComputersImg = loadImage('assets/CyberLaws/1/FraudAndComputers.png');
+  CommunicationImg = loadImage('assets/CyberLaws/1/Communication.png');
+  InterceptionImg = loadImage('assets/CyberLaws/1/Interception.png');
+  UnlawfulAccessImg = loadImage('assets/CyberLaws/1/UnlawfulAccess.png');
 }
 
 function setup() {
   createCanvas(650, 620);
 
+  ////////////////////////////////////////////
+  ////////////////// GAME 1 //////////////////
+  ////////////////////////////////////////////
+  
   center1 = createVector(535, 135);
   center2 = createVector(535, 220);
   center3 = createVector(535, 300);
@@ -199,6 +203,11 @@ function setup() {
   UnlawfulAccess.pos = { x: -100, y: -100 };
   Cyberlaws.pos = { x: -200, y: -200 };
 
+  ////////////////////////////////////////////
+  ////////////////// GAME 2 //////////////////
+  ////////////////////////////////////////////
+  
+  
 }
 
 
