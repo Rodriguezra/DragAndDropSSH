@@ -1,6 +1,6 @@
 let cards = [];
-let Cyberlaws, FraudAndDevices, FraudAndComputers, Communication, Interception, UnlawfulAccess;
-let CyberlawsImg, FraudAndDevicesImg, FraudAndComputersImg, CommunicationImg, pInterceptionImg, UnlawfulAccessImg;
+let Cyberlaws, FraudAndDevices, FraudAndComputers, Communication, Interception, UnlawfulAccess, Cybercrime;
+let CyberlawsImg, FraudAndDevicesImg, FraudAndComputersImg, CommunicationImg, pInterceptionImg, UnlawfulAccessImg, CybercrimeImg;
 let center1, center2, center3, center4, center5;
 let screen = 0;
 let widthConstraint, heightConstraint;
@@ -22,6 +22,12 @@ function setCardsoffScreen() {
   UnlawfulAccess.pos = { x: -100, y: -100 };
   Interception.pos = { x: -100, y: -100 };
   Cyberlaws.pos = { x: -300, y: -300 };
+  if (screen === 0) {
+    Cybercrime.pos = { x: width / 2, y: 160 + 95 };
+  }
+  else {
+    Cybercrime.pos = { x: -100000, y: -200 };
+  }
 }
 
 function mousePressed() {
@@ -36,12 +42,13 @@ function mousePressed() {
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       screen = 2;
-      FraudAndDevices.position = createVector(width / 4 - 77, height - (height / 3) + 125);
-      FraudAndComputers.position = createVector(width / 4 - 77, height - (height / 3) + 175);
-      Communication.position = createVector(width / 2 - 100, height - (height / 3) + 125);
-      Interception.position = createVector(width / 2 - 100, height - (height / 3) + 175);
-      UnlawfulAccess.position = createVector(width / 2 + 40, height - (height / 3) + 125);
-      Cyberlaws.pos = { x: width / 2 - 100, y: 300 };
+      FraudAndDevices.position = createVector(width / 4 - 67, height - (height / 3) + 95);
+      FraudAndComputers.position = createVector(width / 2 - 145, height - (height / 3) + 175);
+      Communication.position = createVector(width / 2 - 60, height - (height / 3) + 95);
+      Interception.position = createVector(width / 2 + 33, height - (height / 3) + 175);
+      UnlawfulAccess.position = createVector(width / 2 + 110, height - (height / 3) + 95);
+      Cyberlaws.pos = { x: 190, y: 285 };
+      Cybercrime.pos = { x: width / 2, y: 160 + 95 };
     }
   }
   else if (screen == 2 && confirm && !cancel) {
@@ -70,6 +77,16 @@ function mousePressed() {
       cancel = true;
     }
   }
+
+  //If on the game screen
+  if (screen === 2) {
+    // Check if the "Learn More" button is clicked
+    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) 
+    {
+      // Display a link to a website for further learning
+      window.open('https://www.law.cornell.edu/uscode/text/18/part-I');
+    }
+  }
 }
 
 
@@ -93,23 +110,23 @@ function snapToCenter(card) {
   if (!mouseIsPressed) {
     let snapped = false;
     switch (true) {
-      case dist(card.x, card.y, center1.x, center1.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center1.x, center1.y) < 60):
+      case dist(card.x, card.y, center1.x, center1.y) < 40 && !cards.some(c => c != card && dist(c.x, c.y, center1.x, center1.y) < 40):
         card.position = center1;
         snapped = true;
         break;
-      case dist(card.x, card.y, center2.x, center2.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center2.x, center2.y) < 60):
+      case dist(card.x, card.y, center2.x, center2.y) < 40 && !cards.some(c => c != card && dist(c.x, c.y, center2.x, center2.y) < 40):
         card.position = center2;
         snapped = true;
         break;
-      case dist(card.x, card.y, center3.x, center3.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center3.x, center3.y) < 60):
+      case dist(card.x, card.y, center3.x, center3.y) < 40 && !cards.some(c => c != card && dist(c.x, c.y, center3.x, center3.y) < 40):
         card.position = center3;
         snapped = true;
         break;
-      case dist(card.x, card.y, center4.x, center4.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center4.x, center4.y) < 60):
+      case dist(card.x, card.y, center4.x, center4.y) < 40 && !cards.some(c => c != card && dist(c.x, c.y, center4.x, center4.y) < 40):
         card.position = center4;
         snapped = true;
         break;
-      case dist(card.x, card.y, center5.x, center5.y) < 60 && !cards.some(c => c != card && dist(c.x, c.y, center5.x, center5.y) < 60):
+      case dist(card.x, card.y, center5.x, center5.y) < 40 && !cards.some(c => c != card && dist(c.x, c.y, center5.x, center5.y) < 40):
         card.position = center5;
         snapped = true;
         break;
@@ -143,6 +160,7 @@ function preload() {
   CommunicationImg = loadImage('assets/CyberLaws/1/Communication.png');
   InterceptionImg = loadImage('assets/CyberLaws/1/Interception.png');
   UnlawfulAccessImg = loadImage('assets/CyberLaws/1/UnlawfulAccess.png');
+  CybercrimeImg = loadImage('assets/CyberLaws/1/Cybercrime.png');
 }
 
 function setup() {
@@ -151,49 +169,55 @@ function setup() {
   ////////////////////////////////////////////
   ////////////////// GAME 1 //////////////////
   ////////////////////////////////////////////
-  
-  center1 = createVector(535, 135);
-  center2 = createVector(535, 220);
-  center3 = createVector(535, 300);
-  center4 = createVector(535, 385);
-  center5 = createVector(535, 475);
 
-  Cyberlaws = new Sprite(width / 2 - 100, 300);
+  center1 = createVector(545, 160);
+  center2 = createVector(545, 220);
+  center3 = createVector(545, 285);
+  center4 = createVector(545, 350);
+  center5 = createVector(545, 415);
+
+  Cyberlaws = new Sprite(width / 2 - 80, 285);
   Cyberlaws.addImage(CyberlawsImg);
   Cyberlaws.collider = 'k';
+  CyberlawsImg.resize(300, 0);
 
   cards = new Group();
   cards.collider = 'k';
 
-  FraudAndDevices = new cards.Sprite(width / 4 - 77, height - (height / 3) + 125);
+  Cybercrime = new Sprite(width / 2, 160 + 95);
+  Cybercrime.addImage(CybercrimeImg);
+  Cybercrime.collider = 'k';
+  CybercrimeImg.resize(200, 0);
+
+  FraudAndDevices = new cards.Sprite(width / 4 - 67, height - (height / 3) + 95);
   FraudAndDevices.addImage(FraudAndDevicesImg);
-  FraudAndDevices.scale = 0.50;
+  FraudAndDevices.scale = 0.6;
   cards[0] = FraudAndDevices;
-  FraudAndDevices.originalPosition = createVector(width / 4 - 77, height - (height / 3) + 125);
+  FraudAndDevices.originalPosition = createVector(width / 4 - 67, height - (height / 3) + 95);
 
-  FraudAndComputers = new cards.Sprite((width / 4 - 77), height - (height / 3) + 175);
+  FraudAndComputers = new cards.Sprite((width / 2 - 145), height - (height / 3) + 175);
   FraudAndComputers.addImage(FraudAndComputersImg);
-  FraudAndComputers.scale = 0.50;
+  FraudAndComputers.scale = 0.6;
   cards[1] = FraudAndComputers;
-  FraudAndComputers.originalPosition = createVector(width / 4 - 77, height - (height / 3) + 175);
+  FraudAndComputers.originalPosition = createVector(width / 2 - 145, height - (height / 3) + 175);
 
-  Communication = new cards.Sprite(width / 2 - 100, height - (height / 3) + 125);
+  Communication = new cards.Sprite(width / 2 - 60, height - (height / 3) + 95);
   Communication.addImage(CommunicationImg);
-  Communication.scale = 0.50;
+  Communication.scale = 0.6;
   cards[2] = Communication;
-  Communication.originalPosition = createVector(width / 2 - 100, height - (height / 3) + 125);
+  Communication.originalPosition = createVector(width / 2 - 60, height - (height / 3) + 95);
 
-  Interception = new cards.Sprite(width / 2 - 100, height - (height / 3) + 175);
+  Interception = new cards.Sprite(width / 2 + 33, height - (height / 3) + 175);
   Interception.addImage(InterceptionImg);
-  Interception.scale = 0.50;
+  Interception.scale = 0.6;
   cards[3] = Interception;
-  Interception.originalPosition = createVector(width / 2 - 100, height - (height / 3) + 175);
+  Interception.originalPosition = createVector(width / 2 + 33, height - (height / 3) + 175);
 
-  UnlawfulAccess = new cards.Sprite(width / 2 + 40, height - (height / 3) + 125);
+  UnlawfulAccess = new cards.Sprite(width / 2 + 110, height - (height / 3) + 95);
   UnlawfulAccess.addImage(UnlawfulAccessImg);
-  UnlawfulAccess.scale = 0.50;
+  UnlawfulAccess.scale = 0.6;
   cards[4] = UnlawfulAccess;
-  UnlawfulAccess.originalPosition = createVector(width / 2 + 40, height - (height / 3) + 125);
+  UnlawfulAccess.originalPosition = createVector(width / 2 + 110, height - (height / 3) + 95);
 
 
   Communication.pos = { x: -100, y: -100 };
@@ -202,12 +226,13 @@ function setup() {
   Interception.pos = { x: -100, y: -100 };
   UnlawfulAccess.pos = { x: -100, y: -100 };
   Cyberlaws.pos = { x: -200, y: -200 };
+  Cybercrime.pos = { x: -400, y: -400 };
 
   ////////////////////////////////////////////
   ////////////////// GAME 2 //////////////////
   ////////////////////////////////////////////
-  
-  
+
+
 }
 
 
@@ -228,15 +253,75 @@ function draw() {
     // Set text properties
     const c = color(0, 179, 115);
     stroke(0);
+    strokeWeight(1);
     fill(255);
     rect(20, 10, 620, 74, 10);
     // Display text content
     textSize(12);
     noStroke();
     fill(0);
-    textAlign(LEFT, TOP); // Text alignment
-    text("The following image provided shows several US federal laws related to cybercrimes. Rearrange the list so that each law matches its correct description", 30, 20, 600, 360);
+    textAlign(CENTER, TOP); // Text alignment
+    text("The following image provided shows several US federal laws related to cybercrimes. Rearrange the list so that each law matches its correct description.", 30, 20, 600, 360);
 
+    // Learn More Button Border
+    stroke(255);
+    strokeWeight(2);
+    fill(255);
+    rect(width - 150, height - 45, 140, 40, 10);
+    // Learn More Button
+    noStroke();
+    fill(c);
+    rect(width - 150 + 1, height - 45 + 1, 138, 38, 10);       // Learn More Button Text
+    fill(255);
+    textSize(16);
+    textAlign(CENTER, CENTER);
+    text("Learn More", width - 80, height - 25);
+
+    fill(c);
+    rect(20, 100, 620, 370, 10);
+
+    fill(255);
+    rect(40, 120, 310, 330, 10);
+
+    fill(255);
+    noStroke();
+    circle (center1.x, center1.y, 35);
+    circle (center2.x, center2.y, 35);
+    circle (center3.x, center3.y, 35);
+    circle (center4.x, center4.y, 35);
+    circle (center5.x, center5.y, 35);
+
+    fill(0);
+    noStroke();
+    textSize(24);
+    textAlign(CENTER);
+    text("1", center1.x - 1, center1.y + 2);
+    text("2", center2.x, center2.y + 2);
+    text("3", center3.x, center3.y + 2);
+    text("4", center4.x, center4.y + 2);
+    text("5", center5.x, center5.y + 2);
+
+    strokeWeight(5);
+    stroke(0);
+    line(365, center1.y, 440, center1.y);
+    line(430, center1.y - 10, 440, center1.y);
+    line(430, center1.y + 10, 440, center1.y);
+
+    line(365, center2.y, 440, center2.y);
+    line(430, center2.y - 10, 440, center2.y);
+    line(430, center2.y + 10, 440, center2.y);
+
+    line(365, center3.y, 440, center3.y);
+    line(430, center3.y - 10, 440, center3.y);
+    line(430, center3.y + 10, 440, center3.y);
+
+    line(365, center4.y, 440, center4.y);
+    line(430, center4.y - 10, 440, center4.y);
+    line(430, center4.y + 10, 440, center4.y);
+
+    line(365, center5.y, 440, center5.y);
+    line(430, center5.y - 10, 440, center5.y);
+    line(430, center5.y + 10, 440, center5.y);
 
     for (let card of cards) {
       handleDragging(card);
@@ -253,16 +338,17 @@ function draw() {
     rect((width / 2) - 140, height / 2 + 205, 300, 100, 10);
     fill(255);
     textSize(20);
-    text('Submit Answer?', width / 2 - 55, height - 90);
+    textAlign(LEFT);
+    text('Submit Answer?', width / 2 - 60, height - 80);
     fill(255);
     rect(width / 2 + 20, height / 2 + 250, 120, 40, 10);
     fill(0);
     textSize(17);
-    text("Submit", width / 2 + 55, height / 2 + 262);
+    text("Submit", width / 2 + 52, height / 2 + 272);
     fill(255);
     rect(width / 2 - 120, height / 2 + 250, 120, 40, 10);
     fill(0);
-    text("Cancel", width / 2 - 85, height / 2 + 262);
+    text("Cancel", width / 2 - 90, height / 2 + 272);
   }
 
   else if (screen === 3) {
@@ -284,7 +370,7 @@ function showStartScreen() {
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
   text("Cybercrime Laws\n\n", width / 2, height / 2 - 200);
-
+  
   // Instructions button
   fill(255);
   noStroke();
@@ -292,6 +378,9 @@ function showStartScreen() {
   fill(0);
   textSize(20);
   text("Instructions", width / 2, height / 2 + 140);
+
+  fill(255);
+  rect(200, 100, 250, 300, 10);
 }
 
 
@@ -314,7 +403,7 @@ function showInstructionScreen() {
 
 
   textSize(18); // Adjusted font size
-  textAlign(LEFT, TOP); // Adjusted text alignment
+  textAlign(CENTER, TOP); // Adjusted text alignment
 
   // Additional text
   fill(color(0));
@@ -322,7 +411,7 @@ function showInstructionScreen() {
   let textY = height / 2 - 150; // Starting Y position for the additional text
   let textLeading = 24; // Line spacing
   let textWidth = width - 100; // Width of the text block
-  let additionalText = "Your objective is to correctly place each card into its designated slot. To play, click and hold on a card, then drag it to the slot where you think it belongs. Release the mouse to drop the card into place.\n\nRemember, each card has a specific slot it must occupy. When all cards have been placed, you'll see an option to check your answers. If you're correct, you'll have the option to play again.";
+  let additionalText = "Your objective is to correctly place each card into its designated slot. To play, click and hold on a card, then drag it to the numbered slot where you think it belongs. Release the mouse to drop the card into place.\n\nRemember, each card has a specific slot it must occupy. When all cards have been placed, you'll see an option to check your answers. If you're correct, you'll have the option to play again.";
 
   text(additionalText, textX, textY, textWidth, height - textY); // Display additional text with specified width and height
 
