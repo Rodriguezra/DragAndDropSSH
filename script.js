@@ -182,7 +182,8 @@ function setup() {
   SSH = new Sprite(width / 2 - 80, 285);
   SSH.addImage(SSHImg);
   SSH.collider = 'k';
-  SSHImg.resize(300, 0);
+  SSH.scale = 0.5;
+
 
   cards = new Group();
   cards.collider = 'k';
