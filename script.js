@@ -184,14 +184,19 @@ function snapToCenter(card) {
   }
 }
 
-function checkIfConfirm() { //submit screen appears if all 5 cards have been snapped to a position
+function checkIfConfirm() { //submit screen appears if all 4 cards have been snapped to a position
   let numSnapped = 0;
   for (let card of cards) {
-    if ((card.x === center1.x && card.y === center1.y) || (card.x === center2.x && card.y === center2.y) || (card.x === center3.x && card.y === center3.y) || (card.x === center4.x && card.y === center4.y)) {
-      numSnapped++;
+    if (
+      dist(card.x, card.y, center1.x, center1.y) < 1 ||
+      dist(card.x, card.y, center2.x, center2.y) < 1 ||
+      dist(card.x, card.y, center3.x, center3.y) < 1 ||
+      dist(card.x, card.y, center4.x, center4.y) < 1 
+    ) {
+        numSnapped++;
     }
   }
-  if (numSnapped === 4) {
+  if (numSnapped == 4) {
     confirm = true;
   }
 }
